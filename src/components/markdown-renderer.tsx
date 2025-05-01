@@ -50,6 +50,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   };
 
   const renderTextWithFormatting = (text: string) => {
+    // Handle HTML tags by escaping them
+    text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
     // Handle bold
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     
@@ -115,6 +118,11 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     
     return text;
   };
+
+  // Handling empty content
+  if (!content || content.trim() === '') {
+    return <div className="text-muted-foreground italic">Tidak ada konten</div>;
+  }
 
   const parts = detectAndRenderCodeBlocks(content);
   

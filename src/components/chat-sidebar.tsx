@@ -155,9 +155,7 @@ export function ChatSidebar({
             <span>Hapus Semua Percakapan</span>
           </Button>
         </div>
-        <div className="p-4 border-t text-center text-xs text-muted-foreground">
-          By Cakra ©2025
-        </div>
+        {/* Footer dihapus dari sini */}
       </div>
 
       {isMobile && (

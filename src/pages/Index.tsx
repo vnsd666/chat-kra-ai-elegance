@@ -85,6 +85,11 @@ const Index = () => {
 
   return (
     <ThemeProvider>
+      {isMobile && sidebarOpen && (
+        <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)}>
+          
+        </div>
+      )}
       <div className="flex h-screen w-full bg-background overflow-hidden">
         <ChatSidebar 
           conversations={conversations}
@@ -103,7 +108,7 @@ const Index = () => {
           "flex-1 flex flex-col overflow-hidden transition-all duration-300 ease-in-out", 
           isMobile ? (sidebarOpen ? 'opacity-20' : '') : (sidebarOpen ? 'ml-72' : 'ml-0')
         )}>
-          <header className="flex items-center p-2 border-b">
+          <header className="flex items-center px-4 py-2 border-b">
             <Button
               variant="ghost"
               size="icon"
@@ -116,22 +121,22 @@ const Index = () => {
             <h1 className="font-semibold">Chat-KRA</h1>
           </header>
           
-          <main className="flex-1 overflow-hidden flex flex-col p-4 sm:p-6">
+          <main className="flex-1 flex flex-col justify-center p-4 sm:p-6">
             {activeConversation && (
-              <div className="flex-1 overflow-y-auto pb-20 sm:pb-16 w-full">
+              <div className="flex-1 flex-grow overflow-y-auto pb-20 sm:pb-16 w-full">
                 {activeConversation.messages.length > 0 ? (
-                  <div className="space-y-4 w-full max-w-full pr-2">
+                  <div className="space-y-4 w-full max-w-full pr-2 ">
                     {activeConversation.messages.map((message) => (
                       <ChatMessage key={message.id} message={message} />
                     ))}
                     <div ref={messagesEndRef} />
                   </div>
                 ) : (
-                  <div className="flex h-full flex-col items-center justify-center text-center px-4">
-                    <h2 className="text-2xl font-semibold mb-2">
+                  <div className="flex flex-col items-center justify-center items-center text-center px-4 mt-auto">
+                    <h2 className="text-2xl font-semibold mb-2 ">
                       Selamat datang di Chat-KRA
                     </h2>
-                    <p className="text-muted-foreground mb-6 max-w-md">
+                    <p className="text-muted-foreground mb-6 max-w-md ">
                       Mulai percakapan baru dengan mengetikkan pesan di bawah ini. 
                       Chat-KRA siap membantu Anda!
                     </p>
@@ -139,7 +144,7 @@ const Index = () => {
                 )}
               </div>
             )}
-            
+              
             <div className="sticky bottom-0 bg-background pt-2 w-full">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
@@ -159,22 +164,22 @@ const Index = () => {
             </div>
           </main>
           
-          <footer className="border-t p-2 text-center text-xs text-muted-foreground">
-            By Cakra ©2025
-          </footer>
-        </div>
+          <footer className="border-t px-4 py-2 text-center text-xs text-muted-foreground">
+          By Cakra ©2025
+        </footer>
       </div>
-      
-      <SettingsDialog 
-        open={settingsOpen} 
-        onOpenChange={setSettingsOpen}
-        settings={settings}
-        onSave={handleSaveSettings}
-      />
-      
-      <Toaster />
-    </ThemeProvider>
-  );
+    </div>
+
+    <SettingsDialog
+      open={settingsOpen}
+      onOpenChange={setSettingsOpen}
+      settings={settings}
+      onSave={handleSaveSettings}
+    />
+
+    <Toaster />
+  </ThemeProvider>
+);
 };
 
 export default Index;

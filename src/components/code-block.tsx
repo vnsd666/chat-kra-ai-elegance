@@ -37,7 +37,11 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        Prism.highlightAll();
+        // Short timeout to ensure DOM is ready
+        const timeout = setTimeout(() => {
+          Prism.highlightAll();
+        }, 0);
+        return () => clearTimeout(timeout);
       } catch (error) {
         console.error("Prism highlighting error:", error);
       }
@@ -57,15 +61,15 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
   // Sanitize language to prevent highlighting errors
   const safeLanguage = ["markup", "html", "xml", "css", "javascript", "typescript", 
     "jsx", "tsx", "json", "python", "java", "c", "cpp", "csharp", "bash", 
-    "sql", "php", "go", "dart", "rust", "kotlin", "swift", "ruby"].includes(language) 
+    "sql", "php", "go", "dart", "rust", "kotlin", "swift", "ruby"].includes(language.toLowerCase()) 
       ? language 
       : "plaintext";
 
   return (
-    <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900">
+    <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full">
       <div className="flex items-center justify-between px-4 py-2 bg-apple-gray-200 dark:bg-apple-gray-950">
         <span className="text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300">
-          {language}
+          {language || "code"}
         </span>
         <Button
           variant="ghost"
@@ -83,9 +87,11 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           </span>
         </Button>
       </div>
-      <pre className="p-4 overflow-x-auto">
-        <code className={`language-${safeLanguage}`}>{code}</code>
-      </pre>
+      <div className="overflow-x-auto">
+        <pre className="p-4 overflow-x-auto">
+          <code className={`language-${safeLanguage}`}>{code}</code>
+        </pre>
+      </div>
     </div>
   );
 }

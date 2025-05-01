@@ -50,7 +50,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   };
 
   const renderTextWithFormatting = (text: string) => {
-    // Handle HTML tags by escaping them
+    // Handle HTML tags by escaping them safely (for display, not execution)
     text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     
     // Handle bold
@@ -127,7 +127,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const parts = detectAndRenderCodeBlocks(content);
   
   return (
-    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none">
+    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none break-words">
       {parts.map((part, index) => {
         if (part.type === "code") {
           return (

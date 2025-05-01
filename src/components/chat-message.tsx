@@ -20,7 +20,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     >
       <div 
         className={cn(
-          "rounded-2xl px-4 py-3 max-w-[85%] sm:max-w-[75%] overflow-x-auto",
+          "rounded-2xl px-4 py-3 max-w-[90%] sm:max-w-[80%]",
           isUser 
             ? "bg-primary text-primary-foreground" 
             : isError 
@@ -28,7 +28,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : "bg-secondary text-secondary-foreground"
         )}
       >
-        <MarkdownRenderer content={message.content} />
+        <div className="overflow-x-auto">
+          <MarkdownRenderer content={message.content} />
+        </div>
       </div>
     </div>
   );

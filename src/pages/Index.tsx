@@ -93,7 +93,7 @@ const Index = () => {
             {activeConversation && (
               <div className="flex-1 overflow-y-auto pb-20 sm:pb-16 w-full">
                 {activeConversation.messages.length > 0 ? (
-                  <div className="space-y-4 w-full">
+                  <div className="space-y-4 w-full pr-1">
                     {activeConversation.messages.map((message) => (
                       <ChatMessage key={message.id} message={message} />
                     ))}

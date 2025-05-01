@@ -36,7 +36,11 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      Prism.highlightAll();
+      try {
+        Prism.highlightAll();
+      } catch (error) {
+        console.error("Prism highlighting error:", error);
+      }
     }
   }, [code]);
 
@@ -49,6 +53,13 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
       console.error("Failed to copy text: ", err);
     }
   };
+
+  // Sanitize language to prevent highlighting errors
+  const safeLanguage = ["markup", "html", "xml", "css", "javascript", "typescript", 
+    "jsx", "tsx", "json", "python", "java", "c", "cpp", "csharp", "bash", 
+    "sql", "php", "go", "dart", "rust", "kotlin", "swift", "ruby"].includes(language) 
+      ? language 
+      : "plaintext";
 
   return (
     <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900">
@@ -73,7 +84,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
         </Button>
       </div>
       <pre className="p-4 overflow-x-auto">
-        <code className={`language-${language}`}>{code}</code>
+        <code className={`language-${safeLanguage}`}>{code}</code>
       </pre>
     </div>
   );

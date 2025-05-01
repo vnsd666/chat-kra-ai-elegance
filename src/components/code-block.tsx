@@ -25,6 +25,7 @@ import "prismjs/components/prism-kotlin";
 import "prismjs/components/prism-swift";
 import "prismjs/components/prism-ruby";
 import "prismjs/themes/prism-tomorrow.css";
+import "./prism-override.css"; // Import custom styling for better contrast
 
 interface CodeBlockProps {
   code: string;
@@ -40,13 +41,13 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
         // Short timeout to ensure DOM is ready
         const timeout = setTimeout(() => {
           Prism.highlightAll();
-        }, 0);
+        }, 10);
         return () => clearTimeout(timeout);
       } catch (error) {
         console.error("Prism highlighting error:", error);
       }
     }
-  }, [code]);
+  }, [code, language]);
 
   const copyToClipboard = async () => {
     try {
@@ -62,13 +63,13 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
   const safeLanguage = ["markup", "html", "xml", "css", "javascript", "typescript", 
     "jsx", "tsx", "json", "python", "java", "c", "cpp", "csharp", "bash", 
     "sql", "php", "go", "dart", "rust", "kotlin", "swift", "ruby"].includes(language.toLowerCase()) 
-      ? language 
+      ? language.toLowerCase() 
       : "plaintext";
 
   return (
     <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full">
       <div className="flex items-center justify-between px-4 py-2 bg-apple-gray-200 dark:bg-apple-gray-950">
-        <span className="text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300">
+        <span className="text-sm font-medium text-apple-gray-800 dark:text-apple-gray-300">
           {language || "code"}
         </span>
         <Button
@@ -87,7 +88,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           </span>
         </Button>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full">
         <pre className="p-4 overflow-x-auto">
           <code className={`language-${safeLanguage}`}>{code}</code>
         </pre>

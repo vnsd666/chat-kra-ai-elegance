@@ -7,10 +7,11 @@ import { ChatMessage } from "@/components/chat-message";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Send } from "lucide-react";
+import { Send, PanelLeft, X } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
   const {
@@ -29,11 +30,17 @@ const Index = () => {
 
   const [input, setInput] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const isMobile = useIsMobile();
   const { toast } = useToast();
+  const [initialSidebarState] = useState(isMobile ? false : true);
+
+  // Initialize sidebar state based on device type
+  useEffect(() => {
+    setSidebarOpen(initialSidebarState);
+  }, [initialSidebarState]);
 
   const activeConversation = getActiveConversation();
 
@@ -72,6 +79,10 @@ const Index = () => {
     });
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <ThemeProvider>
       <div className="flex h-screen w-full bg-background overflow-hidden">
@@ -85,10 +96,26 @@ const Index = () => {
           onOpenSettings={() => setSettingsOpen(true)}
           isMobile={isMobile}
           isOpen={sidebarOpen}
-          onToggle={() => setSidebarOpen(!sidebarOpen)}
+          onToggle={toggleSidebar}
         />
         
-        <div className={`flex-1 flex flex-col overflow-hidden ${isMobile && sidebarOpen ? 'opacity-20' : ''}`}>
+        <div className={cn(
+          "flex-1 flex flex-col overflow-hidden transition-all duration-300 ease-in-out", 
+          isMobile ? (sidebarOpen ? 'opacity-20' : '') : (sidebarOpen ? 'ml-72' : 'ml-0')
+        )}>
+          <header className="flex items-center p-2 border-b">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
+              className="mr-2"
+              aria-label={sidebarOpen ? "Sembunyikan sidebar" : "Tampilkan sidebar"}
+            >
+              {sidebarOpen ? <X className="h-5 w-5" /> : <PanelLeft className="h-5 w-5" />}
+            </Button>
+            <h1 className="font-semibold">Chat-KRA</h1>
+          </header>
+          
           <main className="flex-1 overflow-hidden flex flex-col p-4 sm:p-6">
             {activeConversation && (
               <div className="flex-1 overflow-y-auto pb-20 sm:pb-16 w-full">

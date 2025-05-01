@@ -20,7 +20,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     >
       <div 
         className={cn(
-          "rounded-2xl px-4 py-3 max-w-[92%] sm:max-w-[85%]",
+          "rounded-2xl px-4 py-3 max-w-[92%] sm:max-w-[80%] md:max-w-[75%]",
           isUser 
             ? "bg-primary text-primary-foreground" 
             : isError 

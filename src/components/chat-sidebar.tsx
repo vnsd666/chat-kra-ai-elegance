@@ -6,9 +6,7 @@ import {
   Trash2,
   Settings,
   MessageSquare,
-  FileText,
-  Menu,
-  X
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Conversation } from "@/types/chat";
@@ -77,18 +75,14 @@ export function ChatSidebar({
       <div 
         className={cn(
           "fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-background border-r transition-transform duration-300 ease-in-out",
-          isMobile && !isOpen && "-translate-x-full"
+          (isMobile && !isOpen) && "-translate-x-full",
+          (!isMobile && !isOpen) && "-translate-x-full"
         )}
       >
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-xl font-semibold">Chat-KRA</h2>
           <div className="flex items-center gap-1">
             <ThemeToggle />
-            {isMobile && (
-              <Button variant="ghost" size="icon" onClick={onToggle}>
-                <X className="h-5 w-5" />
-              </Button>
-            )}
           </div>
         </div>
         <div className="flex p-4">
@@ -155,22 +149,7 @@ export function ChatSidebar({
             <span>Hapus Semua Percakapan</span>
           </Button>
         </div>
-        {/* Footer dihapus dari sini */}
       </div>
-
-      {isMobile && (
-        <Button
-          variant="outline"
-          size="icon"
-          className={cn(
-            "fixed left-4 top-4 z-50 rounded-full opacity-80",
-            isOpen && "hidden"
-          )}
-          onClick={onToggle}
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-      )}
 
       <AlertDialog 
         open={deleteConfirmOpen} 

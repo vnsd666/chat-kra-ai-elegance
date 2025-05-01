@@ -1,0 +1,121 @@
+
+/* Better contrast for light mode */
+:root {
+  --prism-foreground: #1A1F2C;
+  --prism-background: #f5f7ff;
+  --prism-comment: #5e6687;
+  --prism-string: #0b6125;
+  --prism-literal: #0b6125;
+  --prism-keyword: #0033b3;
+  --prism-function: #7c0000;
+  --prism-deleted: #c92a2a;
+  --prism-class: #1a8cff;
+  --prism-builtin: #0033b3;
+  --prism-property: #971f4d;
+  --prism-namespace: #0c969b;
+  --prism-punctuation: #3b3b3b;
+  --prism-decorator: #8d6422;
+  --prism-number: #1750eb;
+  --prism-boolean: #1750eb;
+  --prism-variable: #50535c;
+  --prism-regex: #94501f;
+  --prism-json-property: #971f4d;
+  --prism-line-highlight-background: #f1f8ff;
+  --prism-line-number: #888888;
+}
+
+.light-theme {
+  --prism-scheme: light;
+}
+
+/* Apply custom colors in light mode */
+:root[class~='light'] pre[class*="language-"],
+:root:not([class~='dark']) pre[class*="language-"] {
+  color: var(--prism-foreground);
+  background: var(--prism-background);
+}
+
+:root[class~='light'] code[class*="language-"],
+:root:not([class~='dark']) code[class*="language-"] {
+  color: var(--prism-foreground);
+  text-shadow: none;
+}
+
+/* Token colors - light mode */
+:root[class~='light'] .token.comment,
+:root:not([class~='dark']) .token.comment,
+:root[class~='light'] .token.prolog,
+:root:not([class~='dark']) .token.prolog,
+:root[class~='light'] .token.doctype,
+:root:not([class~='dark']) .token.doctype,
+:root[class~='light'] .token.cdata,
+:root:not([class~='dark']) .token.cdata {
+  color: var(--prism-comment);
+}
+
+:root[class~='light'] .token.punctuation,
+:root:not([class~='dark']) .token.punctuation {
+  color: var(--prism-punctuation);
+}
+
+:root[class~='light'] .token.tag,
+:root:not([class~='dark']) .token.tag,
+:root[class~='light'] .token.attr-name,
+:root:not([class~='dark']) .token.attr-name,
+:root[class~='light'] .token.namespace,
+:root:not([class~='dark']) .token.namespace,
+:root[class~='light'] .token.deleted,
+:root:not([class~='dark']) .token.deleted {
+  color: var(--prism-deleted);
+}
+
+:root[class~='light'] .token.function-name,
+:root:not([class~='dark']) .token.function-name {
+  color: var(--prism-function);
+}
+
+:root[class~='light'] .token.boolean,
+:root:not([class~='dark']) .token.boolean,
+:root[class~='light'] .token.number,
+:root:not([class~='dark']) .token.number,
+:root[class~='light'] .token.function,
+:root:not([class~='dark']) .token.function {
+  color: var(--prism-function);
+}
+
+:root[class~='light'] .token.property,
+:root:not([class~='dark']) .token.property,
+:root[class~='light'] .token.class-name,
+:root:not([class~='dark']) .token.class-name,
+:root[class~='light'] .token.constant,
+:root:not([class~='dark']) .token.constant,
+:root[class~='light'] .token.symbol,
+:root:not([class~='dark']) .token.symbol {
+  color: var(--prism-property);
+}
+
+:root[class~='light'] .token.selector,
+:root:not([class~='dark']) .token.selector,
+:root[class~='light'] .token.important,
+:root:not([class~='dark']) .token.important,
+:root[class~='light'] .token.atrule,
+:root:not([class~='dark']) .token.atrule,
+:root[class~='light'] .token.keyword,
+:root:not([class~='dark']) .token.keyword,
+:root[class~='light'] .token.builtin,
+:root:not([class~='dark']) .token.builtin {
+  color: var(--prism-keyword);
+}
+
+:root[class~='light'] .token.string,
+:root:not([class~='dark']) .token.string,
+:root[class~='light'] .token.char,
+:root:not([class~='dark']) .token.char,
+:root[class~='light'] .token.attr-value,
+:root:not([class~='dark']) .token.attr-value,
+:root[class~='light'] .token.regex,
+:root:not([class~='dark']) .token.regex,
+:root[class~='light'] .token.variable,
+:root:not([class~='dark']) .token.variable {
+  color: var(--prism-string);
+}

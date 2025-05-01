@@ -75,8 +75,7 @@ export function ChatSidebar({
       <div 
         className={cn(
           "fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-background border-r transition-transform duration-300 ease-in-out",
-          (isMobile && !isOpen) && "-translate-x-full",
-          (!isMobile && !isOpen) && "-translate-x-full"
+          (isMobile && !isOpen) && "-translate-x-full"
         )}
       >
         <div className="flex items-center justify-between p-4 border-b">
@@ -94,14 +93,14 @@ export function ChatSidebar({
             <span>Percakapan Baru</span>
           </Button>
         </div>
-        <ScrollArea className="flex-1 px-2 py-2">
+        <ScrollArea className="flex-1 p-3">
           {sortedConversations.length > 0 ? (
             sortedConversations.map((conversation) => (
               <div
                 key={conversation.id}
                 onClick={() => onSelect(conversation.id)}
                 className={cn(
-                  "group flex items-center rounded-lg px-3 py-2 text-sm font-medium mb-1",
+                  "group flex items-center rounded-lg p-3 text-sm font-medium mb-1",
                   "hover:bg-accent",
                   activeId === conversation.id
                     ? "bg-accent text-accent-foreground"
@@ -131,7 +130,7 @@ export function ChatSidebar({
             </div>
           )}
         </ScrollArea>
-        <div className="p-4 border-t flex flex-col gap-2">
+        <div className="px-4 py-2 border-t flex flex-col gap-2">
           <Button
             variant="outline"
             className="flex items-center gap-2"

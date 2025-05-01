@@ -1,0 +1,80 @@
+
+import { useState, useEffect } from "react";
+import { Check, Copy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Prism from "prismjs";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-php";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-dart";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-kotlin";
+import "prismjs/components/prism-swift";
+import "prismjs/components/prism-ruby";
+import "prismjs/themes/prism-tomorrow.css";
+
+interface CodeBlockProps {
+  code: string;
+  language: string;
+}
+
+export function CodeBlock({ code, language }: CodeBlockProps) {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      Prism.highlightAll();
+    }
+  }, [code]);
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  return (
+    <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900">
+      <div className="flex items-center justify-between px-4 py-2 bg-apple-gray-200 dark:bg-apple-gray-950">
+        <span className="text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300">
+          {language}
+        </span>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
+          onClick={copyToClipboard}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+          <span className="sr-only">
+            {copied ? "Disalin" : "Salin kode"}
+          </span>
+        </Button>
+      </div>
+      <pre className="p-4 overflow-x-auto">
+        <code className={`language-${language}`}>{code}</code>
+      </pre>
+    </div>
+  );
+}

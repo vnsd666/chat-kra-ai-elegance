@@ -135,7 +135,7 @@ const Index = () => {
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center px-4 mt-auto">
                       <h2 className="text-2xl font-semibold mb-2">
-                        Chat-KRA
+                        Welcome
                       </h2>
                       <p className="text-muted-foreground mb-6 max-w-md">
                         Chat in aja ;)

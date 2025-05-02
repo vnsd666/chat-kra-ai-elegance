@@ -124,18 +124,29 @@
 pre[class*="language-"] {
   overflow-x: auto;
   max-width: 100%;
-  white-space: pre-wrap;
-  word-break: break-word;
+  /* Important - don't use pre-wrap for code */
+  white-space: pre;
+  word-break: normal;
 }
 
 /* Custom handling for HTML examples */
 pre.language-html {
-  white-space: pre-wrap;
-  word-break: break-all;
+  white-space: pre;
+  word-break: normal;
 }
 
 /* Ensure all code blocks have proper scrolling */
 .overflow-x-auto {
   overflow-x: auto;
   max-width: 100%;
+}
+
+/* Fix for mobile scrolling */
+code[class*="language-"] {
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  display: block;
+  width: max-content;
+  min-width: 100%;
 }

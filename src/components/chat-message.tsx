@@ -20,7 +20,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     >
       <div 
         className={cn(
-          "rounded-2xl px-4 py-3 max-w-[92%] sm:max-w-[80%] md:max-w-[75%]",
+          "rounded-2xl px-4 py-3 max-w-[92%] sm:max-w-[80%] md:max-w-[75%] overflow-hidden",
           isUser 
             ? "bg-primary text-primary-foreground" 
             : isError 
@@ -28,7 +28,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : "bg-secondary text-secondary-foreground"
         )}
       >
-        <div className="w-full break-words">
+        <div className="w-full break-words overflow-hidden">
           <MarkdownRenderer content={message.content} />
         </div>
       </div>

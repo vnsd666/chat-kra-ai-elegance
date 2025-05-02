@@ -56,7 +56,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     
     if (isHtmlExample) {
       // For HTML examples, we want to show them as code instead of trying to parse them
-      return `<pre class="bg-apple-gray-100 dark:bg-apple-gray-900 p-2 rounded-md overflow-x-auto"><code class="text-sm font-mono">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;
+      return `<div class="overflow-x-auto w-full"><pre class="bg-apple-gray-100 dark:bg-apple-gray-900 p-2 rounded-md overflow-x-auto"><code class="text-sm font-mono">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre></div>`;
     }
 
     // Regular markdown processing for non-HTML content

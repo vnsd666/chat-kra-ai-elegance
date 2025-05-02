@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Check, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Prism from "prismjs";
@@ -25,7 +25,7 @@ import "prismjs/components/prism-kotlin";
 import "prismjs/components/prism-swift";
 import "prismjs/components/prism-ruby";
 import "prismjs/themes/prism-tomorrow.css";
-import "./prism-override.css"; // Import custom styling for better contrast
+import "./prism-override.css";
 
 interface CodeBlockProps {
   code: string;
@@ -34,20 +34,24 @@ interface CodeBlockProps {
 
 export function CodeBlock({ code, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const codeRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        // Wrap in try-catch to handle potential Prism errors
+        // Use requestAnimationFrame for better timing
         const highlightCode = () => {
-          // Use a safer check for Prism's readiness
-          if (Prism && typeof Prism.highlightAll === 'function') {
-            Prism.highlightAll();
-          }
+          requestAnimationFrame(() => {
+            if (Prism && codeRef.current) {
+              Prism.highlightElement(codeRef.current);
+            }
+          });
         };
         
-        // Longer timeout to ensure DOM is fully ready
-        const timeout = setTimeout(highlightCode, 100);
+        highlightCode();
+        
+        // Also add a fallback timeout just to be sure
+        const timeout = setTimeout(highlightCode, 200);
         return () => clearTimeout(timeout);
       } catch (error) {
         console.error("Prism highlighting error:", error);
@@ -73,7 +77,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
       : "plaintext";
 
   return (
-    <div className="relative my-4 rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full">
+    <div className="relative my-4 rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2 bg-apple-gray-200 dark:bg-apple-gray-950">
         <span className="text-sm font-medium text-apple-gray-800 dark:text-apple-gray-300">
           {language || "code"}
@@ -94,9 +98,15 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           </span>
         </Button>
       </div>
-      <div className="overflow-x-auto w-full">
-        <pre className="p-4 overflow-x-auto">
-          <code className={`language-${safeLanguage} whitespace-pre break-normal`}>{code}</code>
+      <div className="overflow-x-auto w-full max-w-full">
+        <pre className="p-4 overflow-x-auto w-full" style={{ margin: 0 }}>
+          <code 
+            ref={codeRef}
+            className={`language-${safeLanguage}`}
+            style={{ whiteSpace: "pre", wordBreak: "normal", overflowWrap: "normal", display: "block" }}
+          >
+            {code}
+          </code>
         </pre>
       </div>
     </div>

@@ -38,10 +38,16 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
+        // Wrap in try-catch to handle potential Prism errors
+        const highlightCode = () => {
+          // Use a safer check for Prism's readiness
+          if (Prism && typeof Prism.highlightAll === 'function') {
+            Prism.highlightAll();
+          }
+        };
+        
         // Short timeout to ensure DOM is ready
-        const timeout = setTimeout(() => {
-          Prism.highlightAll();
-        }, 10);
+        const timeout = setTimeout(highlightCode, 50);
         return () => clearTimeout(timeout);
       } catch (error) {
         console.error("Prism highlighting error:", error);
@@ -90,7 +96,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
       </div>
       <div className="overflow-x-auto w-full">
         <pre className="p-4 overflow-x-auto">
-          <code className={`language-${safeLanguage}`}>{code}</code>
+          <code className={`language-${safeLanguage} whitespace-pre`}>{code}</code>
         </pre>
       </div>
     </div>

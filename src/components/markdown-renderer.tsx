@@ -50,7 +50,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   };
 
   const renderTextWithFormatting = (text: string) => {
-    // Handle HTML tags by escaping them safely (for display, not execution)
+    // Handle HTML tags by escaping them for display
     text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     
     // Handle bold
@@ -60,7 +60,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
     // Handle inline code
-    text = text.replace(/`([^`]+)`/g, '<code class="bg-apple-gray-100 dark:bg-apple-gray-900 p-1 rounded text-sm">$1</code>');
+    text = text.replace(/`([^`]+)`/g, '<code class="bg-apple-gray-100 dark:bg-apple-gray-900 p-1 rounded text-sm font-mono">$1</code>');
     
     // Handle links
     text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-apple-blue dark:text-apple-teal underline">$1</a>');
@@ -127,7 +127,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const parts = detectAndRenderCodeBlocks(content);
   
   return (
-    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none break-words">
+    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none break-words overflow-hidden">
       {parts.map((part, index) => {
         if (part.type === "code") {
           return (

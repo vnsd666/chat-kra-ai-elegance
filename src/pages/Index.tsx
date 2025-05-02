@@ -126,7 +126,7 @@ const Index = () => {
             {activeConversation && (
               <ScrollArea className="flex-1 p-4 sm:p-6">
                 {activeConversation.messages.length > 0 ? (
-                  <div className="space-y-4 w-full max-w-full pr-2 pb-4">
+                  <div className="space-y-4 w-full max-w-full pb-4">
                     {activeConversation.messages.map((message) => (
                       <ChatMessage key={message.id} message={message} />
                     ))}

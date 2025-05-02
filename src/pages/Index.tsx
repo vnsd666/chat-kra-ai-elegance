@@ -135,11 +135,10 @@ const Index = () => {
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center px-4 mt-auto">
                       <h2 className="text-2xl font-semibold mb-2">
-                        Selamat datang di Chat-KRA
+                        Chat-KRA
                       </h2>
                       <p className="text-muted-foreground mb-6 max-w-md">
-                        Mulai percakapan baru dengan mengetikkan pesan di bawah ini. 
-                        Chat-KRA siap membantu Anda!
+                        Chat in aja ;)
                       </p>
                     </div>
                   )}

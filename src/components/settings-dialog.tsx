@@ -41,7 +41,7 @@ export function SettingsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Pengaturan</DialogTitle>
         </DialogHeader>
@@ -135,7 +135,7 @@ export function SettingsDialog({
             />
           </div>
         </div>
-        <DialogFooter className="sm:justify-between">
+        <div className="w-full justify-end">
           <Button
             type="button"
             variant="outline"
@@ -143,21 +143,23 @@ export function SettingsDialog({
           >
             Reset ke Default
           </Button>
-          <div>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              className="mr-2"
-            >
-              Batal
-            </Button>
-            <Button type="button" onClick={handleSave}>
-              Simpan Pengaturan
-            </Button>
+        </div>
+        <DialogFooter className="flex flex-col-reverse sm:flex-row gap-2">
+          <div className="flex flex-row gap-2">
+              <Button
+                type="button"
+                variant="default"
+                onClick={() => onOpenChange(false)}
+              >
+                Batal
+              </Button>
+              <Button type="button" onClick={handleSave}>
+                Simpan Pengaturan
+              </Button>
           </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
+

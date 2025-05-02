@@ -50,6 +50,16 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   };
 
   const renderTextWithFormatting = (text: string) => {
+    // Special handling for HTML examples that need to be displayed as text
+    // First, detect if the text is HTML-like content to display it differently
+    const isHtmlExample = /<html|<body|<head|<!DOCTYPE/i.test(text);
+    
+    if (isHtmlExample) {
+      // For HTML examples, we want to show them as code instead of trying to parse them
+      return `<pre class="bg-apple-gray-100 dark:bg-apple-gray-900 p-2 rounded-md overflow-x-auto"><code class="text-sm font-mono">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;
+    }
+
+    // Regular markdown processing for non-HTML content
     // Handle HTML tags by escaping them for display
     text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     
@@ -127,7 +137,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const parts = detectAndRenderCodeBlocks(content);
   
   return (
-    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none break-words overflow-hidden">
+    <div className="prose dark:prose-invert prose-sm sm:prose-base max-w-none break-words">
       {parts.map((part, index) => {
         if (part.type === "code") {
           return (
@@ -144,6 +154,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               dangerouslySetInnerHTML={{ 
                 __html: renderTextWithFormatting(part.content) 
               }} 
+              className="overflow-x-auto"
             />
           );
         }

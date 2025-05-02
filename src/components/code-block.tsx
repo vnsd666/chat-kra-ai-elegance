@@ -46,8 +46,8 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           }
         };
         
-        // Short timeout to ensure DOM is ready
-        const timeout = setTimeout(highlightCode, 50);
+        // Longer timeout to ensure DOM is fully ready
+        const timeout = setTimeout(highlightCode, 100);
         return () => clearTimeout(timeout);
       } catch (error) {
         console.error("Prism highlighting error:", error);
@@ -73,7 +73,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
       : "plaintext";
 
   return (
-    <div className="relative my-4 overflow-hidden rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full">
+    <div className="relative my-4 rounded-lg bg-apple-gray-100 dark:bg-apple-gray-900 w-full">
       <div className="flex items-center justify-between px-4 py-2 bg-apple-gray-200 dark:bg-apple-gray-950">
         <span className="text-sm font-medium text-apple-gray-800 dark:text-apple-gray-300">
           {language || "code"}
@@ -96,7 +96,7 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
       </div>
       <div className="overflow-x-auto w-full">
         <pre className="p-4 overflow-x-auto">
-          <code className={`language-${safeLanguage} whitespace-pre`}>{code}</code>
+          <code className={`language-${safeLanguage} whitespace-pre break-normal`}>{code}</code>
         </pre>
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,25 +123,27 @@ const Index = () => {
           
           <main className="flex-1 flex flex-col h-full overflow-hidden">
             {activeConversation && (
-              <ScrollArea className="flex-1 p-4 sm:p-6">
-                {activeConversation.messages.length > 0 ? (
-                  <div className="space-y-4 w-full max-w-full pb-4">
-                    {activeConversation.messages.map((message) => (
-                      <ChatMessage key={message.id} message={message} />
-                    ))}
-                    <div ref={messagesEndRef} />
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-center px-4 mt-auto">
-                    <h2 className="text-2xl font-semibold mb-2">
-                      Selamat datang di Chat-KRA
-                    </h2>
-                    <p className="text-muted-foreground mb-6 max-w-md">
-                      Mulai percakapan baru dengan mengetikkan pesan di bawah ini. 
-                      Chat-KRA siap membantu Anda!
-                    </p>
-                  </div>
-                )}
+              <ScrollArea className="flex-1">
+                <div className="p-4 sm:p-6">
+                  {activeConversation.messages.length > 0 ? (
+                    <div className="space-y-4 w-full max-w-full pb-20">
+                      {activeConversation.messages.map((message) => (
+                        <ChatMessage key={message.id} message={message} />
+                      ))}
+                      <div ref={messagesEndRef} />
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-center px-4 mt-auto">
+                      <h2 className="text-2xl font-semibold mb-2">
+                        Selamat datang di Chat-KRA
+                      </h2>
+                      <p className="text-muted-foreground mb-6 max-w-md">
+                        Mulai percakapan baru dengan mengetikkan pesan di bawah ini. 
+                        Chat-KRA siap membantu Anda!
+                      </p>
+                    </div>
+                  )}
+                </div>
               </ScrollArea>
             )}
               

@@ -28,7 +28,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : "bg-secondary text-secondary-foreground"
         )}
       >
-        <div className="overflow-x-hidden w-full break-words">
+        <div className="w-full break-words">
           <MarkdownRenderer content={message.content} />
         </div>
       </div>

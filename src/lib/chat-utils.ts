@@ -6,7 +6,7 @@ export const defaultSettings: ChatSettings = {
   apiKey: "cpk_c6d9ab965e354227b853699f28f6f1e8.312d1427bef857fcab6c84d698302740.rUYI6mR41lBJs4ptOuDzsFLdIsUtJKdX",
   model: "deepseek-ai/DeepSeek-V3-0324",
   temperature: 0.7,
-  maxTokens: 1024,
+  maxTokens: 1000,
   systemPrompt: "Kamu adalah asisten AI yang membantu, sopan dan akurat. Berikan jawaban yang singkat, padat dan informatif."
 };
 

@@ -2,11 +2,11 @@
 import { ChatSettings, Message, OpenRouterResponse } from "@/types/chat";
 
 export const defaultSettings: ChatSettings = {
-  endpoint: "https://llm.chutes.ai/v1/chat/completions",
-  apiKey: "cpk_c6d9ab965e354227b853699f28f6f1e8.312d1427bef857fcab6c84d698302740.rUYI6mR41lBJs4ptOuDzsFLdIsUtJKdX",
-  model: "deepseek-ai/DeepSeek-V3-0324",
+  endpoint: "https://openrouter.ai/api/v1/chat/completions",
+  apiKey: "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",
+  model: "qwen/qwen3-235b-a22b:free",
   temperature: 0.7,
-  maxTokens: 1024,
+  maxTokens: 1000,
   systemPrompt: "Kamu adalah asisten AI yang membantu, sopan dan akurat. Berikan jawaban yang singkat, padat dan informatif."
 };
 

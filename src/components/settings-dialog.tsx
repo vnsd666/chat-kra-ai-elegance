@@ -41,7 +41,7 @@ export function SettingsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] overflow-y-auto">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Pengaturan</DialogTitle>
         </DialogHeader>
@@ -88,7 +88,7 @@ export function SettingsDialog({
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="temperature" className="text-right">
-              Temperatur {tempSettings.temperature.toFixed(1)}
+              Temperature: {tempSettings.temperature.toFixed(1)}
             </Label>
             <div className="col-span-3">
               <Slider
@@ -135,7 +135,7 @@ export function SettingsDialog({
             />
           </div>
         </div>
-        <div className="w-full justify-end">
+        <DialogFooter className="sm:justify-between">
           <Button
             type="button"
             variant="outline"
@@ -143,23 +143,21 @@ export function SettingsDialog({
           >
             Reset ke Default
           </Button>
-        </div>
-        <DialogFooter className="flex flex-col-reverse sm:flex-row gap-2">
-          <div className="flex flex-row gap-2">
-              <Button
-                type="button"
-                variant="default"
-                onClick={() => onOpenChange(false)}
-              >
-                Batal
-              </Button>
-              <Button type="button" onClick={handleSave}>
-                Simpan Pengaturan
-              </Button>
+          <div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+              className="mr-2"
+            >
+              Batal
+            </Button>
+            <Button type="button" onClick={handleSave}>
+              Simpan Pengaturan
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-

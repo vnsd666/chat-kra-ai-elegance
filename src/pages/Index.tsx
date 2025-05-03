@@ -139,9 +139,7 @@ const Index = () => {
                       <p className="text-muted-foreground mb-6 max-w-md">
                         Chat in aja ;)
                       </p>
-                      <p className="text-muted-foreground mb-6 max-w-md">
-                        Powered by : Deepseek V3 
-                      </p>
+                      
                     </div>
                   )}
                 </div>

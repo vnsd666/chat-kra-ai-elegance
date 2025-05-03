@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,9 +87,7 @@ const Index = () => {
   return (
     <ThemeProvider>
       {isMobile && sidebarOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)}>
-          
-        </div>
+        <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)} />
       )}
       <div className="flex h-screen w-full bg-background overflow-hidden">
         <ChatSidebar 
@@ -140,7 +139,7 @@ const Index = () => {
                       <p className="text-muted-foreground mb-6 max-w-md">
                         Chat in aja ;)
                       </p>
-                    <p className="text-muted-foreground mb-6 max-w-md">
+                      <p className="text-muted-foreground mb-6 max-w-md">
                         Powered by : Deepseek V3 
                       </p>
                     </div>

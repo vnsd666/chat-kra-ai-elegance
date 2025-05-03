@@ -22,6 +22,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ChatSidebarProps {
   conversations: Record<string, Conversation>;
@@ -96,31 +101,37 @@ export function ChatSidebar({
         <ScrollArea className="flex-1 p-3">
           {sortedConversations.length > 0 ? (
             sortedConversations.map((conversation) => (
-              <div
-                key={conversation.id}
-                onClick={() => onSelect(conversation.id)}
-                className={cn(
-                  "group flex items-center rounded-lg p-3 text-sm font-medium mb-1",
-                  "hover:bg-accent",
-                  activeId === conversation.id
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground"
-                )}
-                role="button"
-              >
-                <MessageSquare className="mr-2 h-4 w-4" />
-                <span className="flex-grow truncate">{conversation.title}</span>
-                {activeId !== conversation.id && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                    onClick={(e) => handleDelete(conversation.id, e)}
+              <Tooltip key={conversation.id}>
+                <TooltipTrigger asChild>
+                  <div
+                    onClick={() => onSelect(conversation.id)}
+                    className={cn(
+                      "group flex items-center rounded-lg p-3 text-sm font-medium mb-1",
+                      "hover:bg-accent",
+                      activeId === conversation.id
+                        ? "bg-accent text-accent-foreground"
+                        : "text-muted-foreground"
+                    )}
+                    role="button"
                   >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
+                    <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
+                    <span className="line-clamp-1 flex-grow text-left">{conversation.title}</span>
+                    {activeId !== conversation.id && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 opacity-0 group-hover:opacity-100 flex-shrink-0"
+                        onClick={(e) => handleDelete(conversation.id, e)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="right" align="start" className="max-w-[250px]">
+                  {conversation.title}
+                </TooltipContent>
+              </Tooltip>
             ))
           ) : (
             <div className="flex flex-col items-center justify-center h-32 text-center text-muted-foreground">

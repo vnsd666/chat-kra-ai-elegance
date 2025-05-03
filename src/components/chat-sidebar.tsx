@@ -115,13 +115,14 @@ export function ChatSidebar({
                     role="button"
                   >
                     <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
-                    <span className="line-clamp-1 flex-grow text-left">{conversation.title}</span>
+                    <span className="line-clamp-1 flex-grow text-left overflow-hidden">{conversation.title}</span>
                     {activeId !== conversation.id && (
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6 opacity-0 group-hover:opacity-100 flex-shrink-0"
+                        className="h-6 w-6 opacity-0 group-hover:opacity-100 flex-shrink-0 ml-1"
                         onClick={(e) => handleDelete(conversation.id, e)}
+                        aria-label="Hapus percakapan"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

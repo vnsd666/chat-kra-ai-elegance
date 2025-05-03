@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { TypingAnimation } from "@/components/typing-animation";
 
 const Index = () => {
   const {
@@ -129,6 +130,13 @@ const Index = () => {
                       {activeConversation.messages.map((message) => (
                         <ChatMessage key={message.id} message={message} />
                       ))}
+                      {isLoading && (
+                        <div className="flex justify-start">
+                          <div className="bg-secondary text-secondary-foreground rounded-2xl max-w-[92%] sm:max-w-[80%] md:max-w-[75%] overflow-hidden">
+                            <TypingAnimation />
+                          </div>
+                        </div>
+                      )}
                       <div ref={messagesEndRef} />
                     </div>
                   ) : (

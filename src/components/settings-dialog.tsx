@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +29,13 @@ export function SettingsDialog({
   onSave,
 }: SettingsDialogProps) {
   const [tempSettings, setTempSettings] = useState<ChatSettings>({ ...settings });
+  
+  // Update tempSettings when external settings change or dialog opens
+  useEffect(() => {
+    if (open) {
+      setTempSettings({ ...settings });
+    }
+  }, [settings, open]);
 
   const handleSave = () => {
     onSave(tempSettings);
@@ -162,4 +169,3 @@ export function SettingsDialog({
     </Dialog>
   );
 }
-

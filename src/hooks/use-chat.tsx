@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   generateId,
   getCurrentTime,
@@ -16,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 export function useChat() {
   const [conversations, setConversations] = useState<Record<string, Conversation>>({});
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
-  const [settings, setSettings] = useState<ChatSettings>(defaultSettings);
+  const [settings, setSettings] = useState<ChatSettings>(() => loadSettingsFromLocalStorage());
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -31,9 +30,6 @@ export function useChat() {
     } else {
       createNewConversation();
     }
-    
-    const savedSettings = loadSettingsFromLocalStorage();
-    setSettings(savedSettings);
   }, []);
 
   // Save to localStorage when conversations change
@@ -48,7 +44,7 @@ export function useChat() {
     saveSettingsToLocalStorage(settings);
   }, [settings]);
 
-  const createNewConversation = () => {
+  const createNewConversation = useCallback(() => {
     const id = generateId();
     const newConversation: Conversation = {
       id,
@@ -65,7 +61,7 @@ export function useChat() {
     
     setActiveConversationId(id);
     return id;
-  };
+  }, [conversations]);
 
   const updateConversationTitle = (id: string, title: string) => {
     if (!conversations[id]) return;
@@ -193,10 +189,11 @@ export function useChat() {
   };
 
   const updateSettings = (newSettings: Partial<ChatSettings>) => {
-    setSettings(prev => ({
-      ...prev,
-      ...newSettings
-    }));
+    setSettings(prev => {
+      const updated = { ...prev, ...newSettings };
+      saveSettingsToLocalStorage(updated);
+      return updated;
+    });
   };
 
   return {

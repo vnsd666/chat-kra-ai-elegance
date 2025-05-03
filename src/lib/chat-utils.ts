@@ -83,13 +83,17 @@ export async function callChatApi(
 export const saveConversationToLocalStorage = (
   conversations: Record<string, any>
 ) => {
-  localStorage.setItem("chat-kra-conversations", JSON.stringify(conversations));
+  try {
+    localStorage.setItem("chat-kra-conversations", JSON.stringify(conversations));
+  } catch (e) {
+    console.error("Error saving conversations to localStorage:", e);
+  }
 };
 
 export const loadConversationsFromLocalStorage = () => {
-  const saved = localStorage.getItem("chat-kra-conversations");
-  if (saved) {
-    try {
+  try {
+    const saved = localStorage.getItem("chat-kra-conversations");
+    if (saved) {
       const parsed = JSON.parse(saved);
       
       // Convert string dates back to Date objects
@@ -102,27 +106,34 @@ export const loadConversationsFromLocalStorage = () => {
       });
       
       return parsed;
-    } catch (e) {
-      console.error("Error parsing saved conversations:", e);
-      return {};
     }
+  } catch (e) {
+    console.error("Error parsing saved conversations:", e);
   }
   return {};
 };
 
 export const saveSettingsToLocalStorage = (settings: ChatSettings) => {
-  localStorage.setItem("chat-kra-settings", JSON.stringify(settings));
+  try {
+    localStorage.setItem("chat-kra-settings", JSON.stringify(settings));
+    console.log("Settings saved:", settings);
+  } catch (e) {
+    console.error("Error saving settings to localStorage:", e);
+  }
 };
 
 export const loadSettingsFromLocalStorage = (): ChatSettings => {
-  const saved = localStorage.getItem("chat-kra-settings");
-  if (saved) {
-    try {
-      return JSON.parse(saved);
-    } catch (e) {
-      console.error("Error parsing saved settings:", e);
-      return defaultSettings;
+  try {
+    const saved = localStorage.getItem("chat-kra-settings");
+    if (saved) {
+      const parsedSettings = JSON.parse(saved);
+      console.log("Settings loaded from localStorage:", parsedSettings);
+      return parsedSettings;
     }
+  } catch (e) {
+    console.error("Error parsing saved settings:", e);
   }
+  console.log("Using default settings");
   return defaultSettings;
 };
+

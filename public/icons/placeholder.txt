@@ -1,0 +1,12 @@
+
+These icons should be replaced with actual icon images at the following sizes:
+- 72x72 px
+- 96x96 px
+- 128x128 px
+- 144x144 px
+- 152x152 px
+- 192x192 px
+- 384x384 px
+- 512x512 px
+
+You can generate these from your logo using tools like https://app-manifest.firebaseapp.com/ or https://realfavicongenerator.net/

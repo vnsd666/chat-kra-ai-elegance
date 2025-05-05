@@ -178,7 +178,7 @@ const Index = () => {
           </main>
           
           <footer className="border-t px-4 py-2 text-center text-xs text-muted-foreground">
-            By Cakra ©2025
+            By Alvin "Cakr4" Kalacakra ©2025
           </footer>
         </div>
       </div>
